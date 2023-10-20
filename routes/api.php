@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ForSaleCardController;
 use App\Http\Controllers\Api\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post("/send-message", [MessageController::class, "store"]);
+Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
