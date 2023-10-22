@@ -54,4 +54,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return ['role'=>'user'];
     }
+
 }
+
