@@ -1,11 +1,7 @@
 <?php
 
-
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Api\MessageController;
@@ -45,9 +41,4 @@ Route::group([ 'middleware' =>['jwt.role:user' , 'auth']  , 'prefix' => 'user'],
 
 
 Route::post("/send-message", [MessageController::class, "store"]);
-
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/buy-card/{id}', [HomeController::class, 'buyCard'])->name('buy');
-
 Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
-
