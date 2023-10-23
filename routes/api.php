@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ForSaleCardController;
-\use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\SaleController;
 
 /*
