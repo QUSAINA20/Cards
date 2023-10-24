@@ -18,21 +18,55 @@ class HomeSeeder extends Seeder
     public function run()
    {
        $files = [
-           'image1.png',
-           'image2.jpg',
-           'image3.jpg',
            'video.mp4',
+           'image1.png',        
        ];
 
-        $landing = new Landing();
-        $landing->name = 'Landing 1';
-        $landing->description = 'Description for Landing 1';
-        $landing->section = 'slide_image';
-        $landing->save();
+       $landing_video = Landing::create([
+            'name' => 'Taste the Creativity',
+            'description' => 'We make awesome graphic and web design',
+            'section' => 'slide_video',
+        ]);
+
+        $landing_images = Landing::create([
+            'name' => 'Taste the Creativity',
+            'description' => 'We make awesome graphic and web design',
+            'section' => 'slide_image',
+        ]);
+
+        Landing::create([
+            'name' => 'We are Good at',
+            'description' => 'Some Of These Stuff Under',
+            'section' => 'head',
+        ]);
+        Landing::create([
+            'name' => 'graphic Design',
+            'description' => 'Pellentesque in ipsum id orci porta. vivamus magna
+            justo,lacinia eget
+            consectetur sed,convallis at tellus.',
+            'section' => 'services',
+        ]);
+        Landing::create([
+            'name' => 'graphic Design',
+            'description' => 'Pellentesque in ipsum id orci porta. vivamus magna
+            justo,lacinia eget
+            consectetur sed,convallis at tellus.',
+            'section' => 'services',
+        ]);
+        Landing::create([
+            'name' => 'graphic Design',
+            'description' => 'Pellentesque in ipsum id orci porta. vivamus magna
+            justo,lacinia eget
+            consectetur sed,convallis at tellus.',
+            'section' => 'services',
+        ]);
+        Landing::create([
+            'name' => 'We Have A Discount',
+            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste quidem, voluptatum facilis officiis nostrum adrepellat soluta corrupti, possimus accusantium in nesciunt, molestias minus illum aliquam sequi quod autem quia!',
+            'section' => 'discount',
+        ]);
         
-        $landing->addMedia('storage/app/public/media/' . $files[0])->toMediaCollection('images');
-        $landing->addMedia('storage/app/public/media/' . $files[1])->toMediaCollection('images');
-        $landing->addMedia('storage/app/public/media/' . $files[2])->toMediaCollection('images');
-        $landing->addMedia('storage/app/public/media/' . $files[3])->toMediaCollection('videos');
+        $landing_video->addMedia('storage/app/public/media/' . $files[0])->toMediaCollection('videos');
+        $landing_images->addMedia('storage/app/public/media/' . $files[1])->toMediaCollection('images');
    }
 }

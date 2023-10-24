@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\ForSale;
+use App\Models\ForSaleCard;
 use App\Models\Landing;
 use App\Models\Method;
 use App\Models\Payment;
@@ -16,28 +16,21 @@ class HomeController extends Controller
     public function index()
     {
         $video = Landing::where('section', 'slide_video')->first();
-        $images = Landing::where('section', 'slide_image')->get();
+        $images = Landing::where('section', 'slide_image')->first();
         $headSecondSection = Landing::where('section', 'head')->first();
         $bodyOfSecondSection = Landing::where('section', 'services')->get();
         $discount = Landing::where('section', 'discount')->first();
-        $cardsForSale = ForSale::where('status', '1')->get();
+        $cardsForSale = ForSaleCard::where('status', '1')->get();
  
-        // Retrieve media for images
-        $imageMedia = Media::whereIn('model_id', $images->pluck('id'))
-            ->where('model_type', Landing::class)
-            ->get();
+        $images->loadMedia('images'); 
+        $images->path = $images->getMedia('images')->pluck('url'); 
  
-        // Transform media URLs to their public URLs
-        $imageUrls = $imageMedia->map(function ($media) {
-            return $media->getFullUrl();
-        });
- 
-        // Transform video URL to its public URL
-        $videoUrl = $video->getFirstMediaUrl();
+        $video->loadMedia('videos'); 
+        $video->path = $video->getMedia('videos')->pluck('url'); 
  
         $data = [
-            'video' => $videoUrl,
-            'images' => $imageUrls,
+            'video' => $video,
+            'images' => $images,
             'headSecondSection' => $headSecondSection,
             'bodyOfSecondSection' => $bodyOfSecondSection,
             'discount' => $discount,
@@ -71,7 +64,7 @@ class HomeController extends Controller
 
     public function buyCard($id)
     {
-        $card = ForSale::findOrFail($id);
+        $card = ForSaleCard::findOrFail($id);
         $discounts =  $card->discounts;
 
         $data = [

@@ -43,7 +43,7 @@ Route::group([ 'middleware' =>['jwt.role:user' , 'auth']  , 'prefix' => 'user'],
 
 Route::post("/send-message", [MessageController::class, "store"]);
 Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
-Route::get('/', [HomeController::class, 'index'])->name('home')->json();
-Route::get('/buy-card/{id}', [HomeController::class, 'buyCard'])->name('buy')->json();
-Route::post('/get-transaction-for-method', [HomeController::class, 'getTransactionNumber'])->name('get-transaction-for-method')->json();
-Route::get('/dashboard', [HomeController::class, 'isUser'])->name('dashboard')->json();
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/buy-card/{id}', [HomeController::class, 'buyCard'])->name('buy');
+Route::post('/get-transaction-for-method', [HomeController::class, 'getTransactionNumber'])->name('get-transaction-for-method');
+Route::get('/dashboard', [HomeController::class, 'isUser'])->name('dashboard');
