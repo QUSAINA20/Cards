@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ForSaleCard;
-use Illuminate\Http\Request;
 
 class ForSaleCardController extends Controller
 {
@@ -19,5 +18,10 @@ class ForSaleCardController extends Controller
         }
     
         return response()->json($forSaleCards);
+    }
+
+    public function show(ForSaleCard $forSaleCard)
+    {
+        return $forSaleCard->load('discounts');
     }
 }

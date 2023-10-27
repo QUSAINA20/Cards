@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ForSaleCardController;
+use App\Http\Controllers\Api\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,11 @@ Route::group([ 'middleware' =>['jwt.role:user' , 'auth']  , 'prefix' => 'user'],
 
 
 Route::post("/send-message", [MessageController::class, "store"]);
+
 Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/buy-card/{id}', [HomeController::class, 'buyCard'])->name('buy');
-Route::post('/get-transaction-for-method', [HomeController::class, 'getTransactionNumber'])->name('get-transaction-for-method');
-Route::get('/dashboard', [HomeController::class, 'isUser'])->name('dashboard');
+Route::get('/for-sale-cards/{forSaleCard}', [ForSaleCardController::class, "show"]);
+
+Route::post("/buy-card", [SaleController::class, "store"]);
+
