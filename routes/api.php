@@ -1,6 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\Api\Admin\SaleController as AdminSaleController;
+
 use App\Http\Controllers\Api\CardTypeController;
+
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,24 +26,27 @@ use App\Http\Controllers\Api\SaleController;
 */
 
 //Admin Route
-Route::group(['prefix' => 'admin/dashboard'], function($router){
-    Route::post('/login', [AdminController::class , 'login']);
+Route::group(['prefix' => 'admin/dashboard'], function ($router) {
+    Route::post('/login', [AdminController::class, 'login']);
 });
 
 
-Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/dashboard'], function($router){
-    Route::post('/logout', [AdminController::class , 'logout']);
+Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
+    Route::get('/sales', [AdminSaleController::class, 'index']);
+    Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
+    Route::delete('/remove-sale/{id}', [AdminSaleController::class, 'destroy']);
+    Route::post('/logout', [AdminController::class, 'logout']);
 });
 
 //User Route
-Route::group(['prefix' => 'user'], function($router){
-    Route::post('/register', [UserController::class , 'register']);
-    Route::post('/login', [UserController::class , 'login']);
+Route::group(['prefix' => 'user'], function ($router) {
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/login', [UserController::class, 'login']);
 });
 
 
-Route::group([ 'middleware' =>['jwt.role:user' , 'auth']  , 'prefix' => 'user'], function($router){
-    Route::post('/logout', [UserController::class , 'logout']);
+Route::group(['middleware' => ['jwt.role:user', 'auth'], 'prefix' => 'user'], function ($router) {
+    Route::post('/logout', [UserController::class, 'logout']);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -51,6 +58,7 @@ Route::get('/for-sale-cards/{forSaleCard}', [ForSaleCardController::class, "show
 
 Route::post("/buy-card", [SaleController::class, "store"]);
 
+
 Route::controller(CardTypeController::class)->group(function () {
     Route::get('card-types',  'index');
     Route::post('card-types/store', 'store');
@@ -59,3 +67,4 @@ Route::controller(CardTypeController::class)->group(function () {
     Route::put('card-types/{cardType}/changestatus',  'changeStatus');
 
 });
+
