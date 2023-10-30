@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Sale;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,9 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            CreateAdminUserSeeder::class,
-            HomeSeeder::class,
-        ]);
+        Sale::factory()->create();
+        // $this->call([
+        //     CreateAdminUserSeeder::class,
+        //     HomeSeeder::class,
+        // ]);
     }
 }
