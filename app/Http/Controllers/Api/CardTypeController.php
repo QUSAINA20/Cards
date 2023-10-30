@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 
 class CardTypeController extends Controller
 {
-
+    public function __construct()
+    {
+        \Config::set('auth.defaults.guard' , 'admin-api');
+    }
     public function index()
     {
         $cardTypes = CardType::all();
@@ -29,11 +32,8 @@ class CardTypeController extends Controller
 
     public function update(CardTypeRequest $request, CardType $cardType)
     {
-       $request->validated();
-        $cardType->update([
-            'name' => $request->name,
-            'status' => $request->status,
-        ]);
+     $data=  $request->validated();
+        $cardType->update($data);
         return response()->json('Card Type updated successfully.', 200);
     }
     

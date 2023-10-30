@@ -31,10 +31,20 @@ Route::group(['prefix' => 'admin/dashboard'], function ($router) {
 });
 
 
+
 Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
     Route::get('/sales', [AdminSaleController::class, 'index']);
     Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
     Route::delete('/remove-sale/{id}', [AdminSaleController::class, 'destroy']);
+  
+      Route::controller(CardTypeController::class)->group(function () {
+        Route::get('card-types',  'index');
+        Route::post('card-types/store', 'store');
+        Route::put('card-types/{cardType}',  'update');
+        Route::delete('card-types/{cardType}', 'destroy');
+        Route::put('card-types/{cardType}/changestatus',  'changeStatus');
+    });
+  
     Route::post('/logout', [AdminController::class, 'logout']);
 });
 
@@ -57,14 +67,3 @@ Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
 Route::get('/for-sale-cards/{forSaleCard}', [ForSaleCardController::class, "show"]);
 
 Route::post("/buy-card", [SaleController::class, "store"]);
-
-
-Route::controller(CardTypeController::class)->group(function () {
-    Route::get('card-types',  'index');
-    Route::post('card-types/store', 'store');
-    Route::put('card-types/{cardType}',  'update');
-    Route::delete('card-types/{cardType}', 'destroy');
-    Route::put('card-types/{cardType}/changestatus',  'changeStatus');
-
-});
-
