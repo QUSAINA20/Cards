@@ -1,6 +1,10 @@
 <?php
 
+
 use App\Http\Controllers\Api\Admin\SaleController as AdminSaleController;
+
+use App\Http\Controllers\Api\CardTypeController;
+
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,12 +49,22 @@ Route::group(['middleware' => ['jwt.role:user', 'auth'], 'prefix' => 'user'], fu
     Route::post('/logout', [UserController::class, 'logout']);
 });
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::post("/send-message", [MessageController::class, "store"]);
 
 Route::get("/for-sale-cards", [ForSaleCardController::class, "index"]);
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/for-sale-cards/{forSaleCard}', [ForSaleCardController::class, "show"]);
 
 Route::post("/buy-card", [SaleController::class, "store"]);
+
+
+Route::controller(CardTypeController::class)->group(function () {
+    Route::get('card-types',  'index');
+    Route::post('card-types/store', 'store');
+    Route::put('card-types/{cardType}',  'update');
+    Route::delete('card-types/{cardType}', 'destroy');
+    Route::put('card-types/{cardType}/changestatus',  'changeStatus');
+
+});
+
