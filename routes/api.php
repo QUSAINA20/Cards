@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ForSaleCardController;
 use App\Http\Controllers\Api\SaleController;
+use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ Route::group(['prefix' => 'admin/dashboard'], function($router){
 
 
 Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/dashboard'], function($router){
-    Route::controller(CardTypeController::class)->group(function () {
+    Route::controller(AdminCardTypeController::class)->group(function () {
         Route::get('card-types',  'index');
         Route::post('card-types/store', 'store');
         Route::put('card-types/{cardType}',  'update');
