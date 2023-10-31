@@ -1,10 +1,8 @@
 <?php
 
-
+use App\Http\Controllers\Api\Admin\CardValueController as AdminCardValueController;
 use App\Http\Controllers\Api\Admin\SaleController as AdminSaleController;
-
-use App\Http\Controllers\Api\CardTypeController;
-
+use App\Http\Controllers\Api\Admin\CardTypeController as AdminCardTypeController;
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +42,13 @@ Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/
         Route::put('card-types/{cardType}',  'update');
         Route::delete('card-types/{cardType}', 'destroy');
         Route::put('card-types/{cardType}/changestatus',  'changeStatus');
+    });
+
+    Route::controller(AdminCardValueController::class)->group(function () {
+        Route::post('card-values/store', 'store');
+        Route::put('card-values/{cardValue}',  'update');
+        Route::delete('card-values/{cardValue}', 'destroy');
+        Route::put('card-values/{cardValue}/changestatus',  'changeStatus');
     });
   
     Route::post('/logout', [AdminController::class, 'logout']);
