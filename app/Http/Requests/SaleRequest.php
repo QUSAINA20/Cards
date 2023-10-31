@@ -44,9 +44,9 @@ class SaleRequest extends FormRequest
             'phone.min' => 'Phone must be More than 9 characters.',
             'phone.regex' => 'Phone must contain only numbers, spaces, hyphens, plus signs, and parentheses.',
 
-            'transaction_number.required' => 'Phone field is required.',
-            'transaction_number.max' => 'Phone must be less than 30 characters.',
-            'transaction_number.min' => 'Phone must be More than 25 characters.',
+            'transaction_number.required' => 'Transaction Number field is required.',
+            'transaction_number.max' => 'Transaction Number must be less than 30 characters.',
+            'transaction_number.min' => 'Transaction Number must be More than 25 characters.',
         ];
     }
 }
