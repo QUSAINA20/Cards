@@ -16,7 +16,7 @@ class CardTypeController extends Controller
     }
     public function index()
     {
-        $cardTypes = CardType::all();
+        $cardTypes =CardType::with('card_value')->get();
         return response()->json($cardTypes);
     }
 
