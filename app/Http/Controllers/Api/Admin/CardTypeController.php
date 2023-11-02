@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CardTypeRequest;
@@ -16,7 +16,7 @@ class CardTypeController extends Controller
     }
     public function index()
     {
-        $cardTypes = CardType::all();
+        $cardTypes =CardType::with('card_value')->get();
         return response()->json($cardTypes);
     }
 
