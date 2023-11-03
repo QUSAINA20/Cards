@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Sale::factory()->create();
-        // $this->call([
-        //     CreateAdminUserSeeder::class,
-        //     HomeSeeder::class,
-        // ]);
+        // Sale::factory()->create();
+        $this->call([
+            RolePermissionSeeder::class,
+            CreateAdminUserSeeder::class,
+           // HomeSeeder::class,
+        ]);
     }
 }
