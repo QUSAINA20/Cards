@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Api\CardTypeController;
 
 use App\Http\Controllers\Api\Admin\CardTypeController as AdminCardTypeController;
+use App\Http\Controllers\Api\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,17 +38,21 @@ Route::group(['prefix' => 'admin/dashboard'], function ($router) {
 
 
 Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
-    Route::middleware('permission:create-sale')->get('/sales', [AdminSaleController::class, 'index']);
+
+
+Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
+    get('/sales', [AdminSaleController::class, 'index']);
     Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
     Route::delete('/remove-sale/{id}', [AdminSaleController::class, 'destroy']);
 
       Route::controller(CardTypeController::class)->group(function () {
 
 Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/dashboard'], function($router){
+
     Route::get('/sales', [AdminSaleController::class, 'index']);
     Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
     Route::delete('/remove-sale/{id}', [AdminSaleController::class, 'destroy']);
-  
+
     Route::controller(AdminCardTypeController::class)->group(function () {
 
         Route::get('card-types',  'index');
@@ -64,7 +69,18 @@ Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/
         Route::delete('card-values/{cardValue}', 'destroy');
         Route::put('card-values/{cardValue}/changestatus',  'changeStatus');
     });
-  
+
+    Route::get('guests/messages', [AdminMessageController::class, 'getGuestsMessages']);
+    Route::get('guests/messages/{id}', [AdminMessageController::class, 'getGuestMessage']);
+    Route::get('users/messages', [AdminMessageController::class, 'getUsersMessages']);
+    Route::get('users/messages/{id}', [AdminMessageController::class, 'getUserMessage']);
+    Route::put('guests/messages/{id}/update-status', [AdminMessageController::class, 'updateGuestStatusMessage']);
+    Route::put('users/messages/{id}/update-status', [AdminMessageController::class, 'updateUserStatusMessage']);
+    Route::post('guests/messages/{id}/reply', [AdminMessageController::class, 'replayToGuest']);
+    Route::post('users/messages/{id}/reply', [AdminMessageController::class, 'replayToUser']);
+
+
+
 
     Route::post('/logout', [AdminController::class, 'logout']);
 });
