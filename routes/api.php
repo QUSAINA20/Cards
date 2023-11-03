@@ -35,14 +35,6 @@ Route::group(['prefix' => 'admin/dashboard'], function ($router) {
 });
 
 
-
-
-
-
-
-
-
-
 Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
 
     Route::get('/sales', [AdminSaleController::class, 'index']);

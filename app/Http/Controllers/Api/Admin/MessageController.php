@@ -20,7 +20,7 @@ class MessageController extends Controller
 
     public function getGuestsMessages()
     {
-        $messages = Message::All();
+        $messages = Message::paginate(10);
         if ($messages->isEmpty()) {
             return response()->json(['messages' => []]);
         }
@@ -35,7 +35,7 @@ class MessageController extends Controller
 
     public function getUsersMessages()
     {
-        $messages = UserMessage::with(('user'))->get();
+        $messages = UserMessage::with(('user'))->paginate(10);
         if ($messages->isEmpty()) {
             return response()->json(['messages' => []]);
         }
