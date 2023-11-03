@@ -37,17 +37,13 @@ Route::group(['prefix' => 'admin/dashboard'], function ($router) {
 
 
 
-Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
+
+
+
+
 
 
 Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/dashboard'], function ($router) {
-    get('/sales', [AdminSaleController::class, 'index']);
-    Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
-    Route::delete('/remove-sale/{id}', [AdminSaleController::class, 'destroy']);
-
-      Route::controller(CardTypeController::class)->group(function () {
-
-Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/dashboard'], function($router){
 
     Route::get('/sales', [AdminSaleController::class, 'index']);
     Route::post('/change-sale-statuse/{id}', [AdminSaleController::class, 'changeStatus']);
@@ -79,9 +75,6 @@ Route::group([ 'middleware' =>['jwt.role:admin' , 'auth']  , 'prefix' => 'admin/
     Route::post('guests/messages/{id}/reply', [AdminMessageController::class, 'replayToGuest']);
     Route::post('users/messages/{id}/reply', [AdminMessageController::class, 'replayToUser']);
 
-
-
-
     Route::post('/logout', [AdminController::class, 'logout']);
 });
 
@@ -94,7 +87,6 @@ Route::group(['prefix' => 'user'], function ($router) {
 
 Route::group(['middleware' => ['jwt.role:user', 'auth'], 'prefix' => 'user'], function ($router) {
     Route::post('/logout', [UserController::class, 'logout']);
-
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
