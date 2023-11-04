@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('path')->nullable();
             $table->string('icon')->nullable();
             $table->enum('section', ['slide_image', 'slide_video', 'head', 'services', 'discount', 'footer']);
             $table->timestamps();
