@@ -11,7 +11,7 @@ class Landing extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['name', 'description', 'path', 'icon', 'section'];
+    protected $fillable = ['name', 'description', 'icon', 'section'];
 
     public function registerMediaCollections(): void
     {
