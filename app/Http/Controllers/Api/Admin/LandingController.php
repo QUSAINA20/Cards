@@ -23,6 +23,7 @@ class LandingController extends Controller implements HasMedia
         $landings = Landing::all();
 
         foreach ($landings as $landing) {
+            
             $landing->loadMedia('images'); 
             $landing->image_url = $landing->getMedia('images')->pluck('url');
 
