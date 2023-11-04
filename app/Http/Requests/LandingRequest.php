@@ -34,7 +34,6 @@ class LandingRequest extends FormRequest
             'videos.*' => 'nullable|file|mimes:mp4',
         ];
     }
-
     public function messages()
     {
         return [
