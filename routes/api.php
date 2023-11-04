@@ -1,22 +1,18 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Api\Admin\CardValueController as AdminCardValueController;
 use App\Http\Controllers\Api\Admin\SaleController as AdminSaleController;
-
-
-use App\Http\Controllers\Api\CardTypeController;
-
 use App\Http\Controllers\Api\Admin\CardTypeController as AdminCardTypeController;
 use App\Http\Controllers\Api\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\HomeController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ForSaleCardController;
 use App\Http\Controllers\Api\SaleController;
-use App\Models\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,12 +46,27 @@ Route::group(['middleware' => ['jwt.role:admin', 'auth'], 'prefix' => 'admin/das
         Route::put('card-types/{cardType}/changestatus',  'changeStatus');
     });
 
-
     Route::controller(AdminCardValueController::class)->group(function () {
         Route::post('card-values/store', 'store');
         Route::put('card-values/{cardValue}',  'update');
         Route::delete('card-values/{cardValue}', 'destroy');
         Route::put('card-values/{cardValue}/changestatus',  'changeStatus');
+    });
+
+    Route::controller(AdminUserController::class)->group(function () {
+        Route::get('users',  'index');
+        Route::post('users/store', 'store');
+        Route::put('users/{user}',  'update');
+        Route::delete('users/{user}', 'destroy');
+        Route::put('users/{user}/changestatus',  'changeStatus');
+    });
+
+    Route::controller(AdminAdminController::class)->group(function () {
+        Route::get('admins',  'index');
+        Route::post('admins/store', 'store');
+        Route::put('admins/{admin}',  'update');
+        Route::delete('admins/{admin}', 'destroy');
+        Route::put('admins/{admin}/changestatus',  'changeStatus');
     });
 
     Route::get('guests/messages', [AdminMessageController::class, 'getGuestsMessages']);

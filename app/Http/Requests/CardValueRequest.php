@@ -33,9 +33,9 @@ class CardValueRequest extends FormRequest
     public function messages()
     {
         return [
-            'value.required' => 'Name field is required.',
-            'value.string'=>'Name Must Be string',
-            'value.max' => 'Name Must Be Less Than 7 Char',
+            'value.required' => 'Value field is required.',
+            'value.string'=>'Value Must Be string',
+            'value.max' => 'Value Must Be Less Than 7 Char',
 
             'daily_price.required' => 'Daily price field is required.',
             'daily_price.string'=>'Daily price Must Be numeric',
