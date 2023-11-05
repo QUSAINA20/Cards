@@ -10,28 +10,26 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $video = Landing::where('section', 'slide_video')->first();
-        $images = Landing::where('section', 'slide_image')->first();
-        $headSecondSection = Landing::where('section', 'head')->first();
+        $video = Landing::where('section', 'slide_video')->latest('created_at')->first();
+        $images = Landing::where('section', 'slide_image')->latest('created_at')->first();
+        $headSecondSection = Landing::where('section', 'head')->latest('created_at')->first();
         $bodyOfSecondSection = Landing::where('section', 'services')->get();
-        $discount = Landing::where('section', 'discount')->first();
-        $cardsForSale = ForSaleCard::where('status', '1')->get();
- 
-        $images->loadMedia('images'); 
-        $images->path = $images->getMedia('images')->pluck('url'); 
- 
-        $video->loadMedia('videos'); 
-        $video->path = $video->getMedia('videos')->pluck('url'); 
- 
+        $discount = Landing::where('section', 'discount')->latest('created_at')->first();
+
+        $images->loadMedia('images');
+        $images->path = $images->getMedia('images')->pluck('url');
+
+        $video->loadMedia('videos');
+        $video->path = $video->getMedia('videos')->pluck('url');
+
         $data = [
             'video' => $video,
             'images' => $images,
             'headSecondSection' => $headSecondSection,
             'bodyOfSecondSection' => $bodyOfSecondSection,
             'discount' => $discount,
-            'cardsForSale' => $cardsForSale,
         ];
- 
+
         return response()->json($data);
     }
 }

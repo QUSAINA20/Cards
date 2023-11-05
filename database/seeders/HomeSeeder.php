@@ -16,20 +16,16 @@ class HomeSeeder extends Seeder
      * @return void
      */
     public function run()
-   {
-       $files = [
-           'video.mp4',
-           'image1.png',        
-       ];
+    {
 
-       $landing_video = Landing::create([
-            'name' => 'Taste the Creativity',
+        $landing_video = Landing::create([
+            'name' => 'test',
             'description' => 'We make awesome graphic and web design',
             'section' => 'slide_video',
         ]);
 
         $landing_images = Landing::create([
-            'name' => 'Taste the Creativity',
+            'name' => 'test',
             'description' => 'We make awesome graphic and web design',
             'section' => 'slide_image',
         ]);
@@ -65,8 +61,8 @@ class HomeSeeder extends Seeder
             'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste quidem, voluptatum facilis officiis nostrum adrepellat soluta corrupti, possimus accusantium in nesciunt, molestias minus illum aliquam sequi quod autem quia!',
             'section' => 'discount',
         ]);
-        
-        $landing_video->addMedia('storage/app/public/media/' . $files[0])->toMediaCollection('videos');
-        $landing_images->addMedia('storage/app/public/media/' . $files[1])->toMediaCollection('images');
-   }
+
+        $landing_video->addMediaFromUrl('https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4')->toMediaCollection('videos');
+        $landing_images->addMediaFromUrl('https://www.w3schools.com/w3images/lights.jpg')->toMediaCollection('images');
+    }
 }
