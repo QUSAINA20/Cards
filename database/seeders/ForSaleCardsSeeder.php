@@ -30,7 +30,8 @@ class ForSaleCardsSeeder extends Seeder
         ];
 
         foreach ($data as $record) {
-            ForSaleCard::create($record);
+            $ForSaleCard = ForSaleCard::create($record);
+            $ForSaleCard->addMediaFromUrl('https://www.w3schools.com/w3images/lights.jpg')->toMediaCollection('images');
         }
     }
 }
