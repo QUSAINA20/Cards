@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\ForSaleCard;
 use App\Models\Sale;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,
             CreateAdminUserSeeder::class,
-           // HomeSeeder::class,
+            HomeSeeder::class,
+            ForSaleCardsSeeder::class,
+
         ]);
     }
 }
